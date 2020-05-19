@@ -20,6 +20,10 @@ button:focus {
     outline: 0;
 }
 
+input:focus {
+    border: 2px solid hsl(0, 36%, 70%);
+}
+
 
 .container {
     display: flex;
@@ -29,7 +33,6 @@ button:focus {
 .left {
     width: 60%;
     padding: 0 40px;
-    
 } 
 
 .right {
@@ -44,7 +47,12 @@ button:focus {
 .bg-image {
     background-image: url('./images/hero-desktop.jpg');
     background-size: cover;
-    background-position: center center
+    background-position: center center;
+    z-index: 2;
+}
+
+.bg-mobile {
+    display: none;
 }
 
 .logo {
@@ -57,10 +65,12 @@ h1 {
     letter-spacing: 20px;
     font-size: 70px;
     margin-bottom: 0;
+    transform: translateX(-100%);
     text-transform: uppercase;
     color: hsl(0, 6%, 24%);
     line-height: 1.2;
-}
+    animation: comeinleft 0.5s ease forwards;
+} 
 
 h1 span {
     color: hsl(0, 36%, 70%);
@@ -71,12 +81,18 @@ p {
     color: hsl(0, 36%, 70%);
     line-height: 1.85;
     margin: 40px 0 50px 0;
+    transform: translateX(100%);
     font-size: 17px;
+    opacity: 0;
     font-weight: 400;
+    z-index: 0;
+    animation: comeinright 0.5s ease forwards;
 }
 
 form {
     position: relative;
+    transform: translateX(-100%);
+    animation: comeinleft 0.5s ease forwards;
 }
 
 form.error {
@@ -141,4 +157,56 @@ small {
 
 form.error small {
     display: block;
+}
+
+
+/* Animations */
+
+@keyframes comeinleft {
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes comeinright {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+/* media queries */
+
+@media (max-width: 800px) {
+
+    .logo {
+        margin: 30px 0;
+        width: 150px;
+    }
+
+    h1 {
+        font-size: 55px;
+    }
+
+    .bg-mobile {
+        display: block;
+        margin-left: -40px;
+        margin-right: -40px;
+        width: calc(100% + 80px);
+    }
+
+    .right {
+        display: none;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    input {
+        margin-bottom: 100px;
+    }
+
+    
 }
